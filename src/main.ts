@@ -8,6 +8,8 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle('Cody blog API')
     .setDescription('Aplicación de gestión de blogs')
@@ -17,6 +19,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('docs', app, document);
+
   await app.listen(configService.get('PORT'));
 }
 bootstrap();
