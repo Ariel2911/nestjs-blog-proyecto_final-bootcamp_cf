@@ -51,7 +51,11 @@ Modo Producción:
 
 ## Punto de acceso
 
-http://localhost:3000
+http://localhost:3000/api
+
+## Documentación
+
+Para acceder a la información detallada de los end points se debe iniciar el servidor y acceder a [http://localhost:3000/api/docs](http://localhost:3000/api/docs). Esta documentación fue generada usando Swagger.
 
 ## Licencia
 
