@@ -1,6 +1,7 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from '../dto/create-user';
 
 @ApiTags('users')
 @Controller('users')
@@ -12,12 +13,13 @@ export class UsersController {
   @ApiResponse({
     status: 201,
     description: 'Created user',
+    type: CreateUserDto,
   })
-  @ApiResponse({
-    status: 400,
-    description: 'Are missing or the type of data is incorrect',
-  })
-  createUser() {
-    return this.usersService.createUser();
+  createUser(@Body() createUserDto: CreateUserDto) {
+    try {
+      return this.usersService.createUser(createUserDto);
+    } catch (error) {
+      return error.message;
+    }
   }
 }
