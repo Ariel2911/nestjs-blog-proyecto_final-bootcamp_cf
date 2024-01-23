@@ -10,7 +10,7 @@ import {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  @Length(1, 200)
+  @Length(3, 200)
   readonly name: string;
 
   @IsNotEmpty()
