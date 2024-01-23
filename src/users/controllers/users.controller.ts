@@ -15,11 +15,11 @@ export class UsersController {
     description: 'Created user',
     type: CreateUserDto,
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Returns a message with the error found in the received data',
+  })
   createUser(@Body() createUserDto: CreateUserDto) {
-    try {
-      return this.usersService.createUser(createUserDto);
-    } catch (error) {
-      return error.message;
-    }
+    return this.usersService.createUser(createUserDto);
   }
 }
