@@ -40,7 +40,7 @@ export class CreateUserDto {
   @ApiProperty({
     example: 'true',
     default: false,
-    description: 'Optional value',
+    description: 'Optional value. Set the administrator role',
   })
   @IsOptional()
   @IsBoolean()

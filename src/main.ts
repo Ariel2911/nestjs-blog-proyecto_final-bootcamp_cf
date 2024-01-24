@@ -16,7 +16,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Cody blog API')
-    .setDescription('Aplicación de gestión de blogs')
+    .setDescription('Blog management application')
     .setVersion('1.0')
     .build();
 
