@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { User } from 'src/users/schemas/usersSchema';
 
@@ -7,6 +8,7 @@ import { User } from 'src/users/schemas/usersSchema';
 export class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private jwtService: JwtService,
   ) {}
 
   /**
@@ -34,5 +36,20 @@ export class AuthService {
       return { name: user.name };
     }
     return null;
+  }
+
+  /**
+   * 
+   * @param user { name: string }
+   * @returns Promise<{
+        access_token: string;
+      }
+   */
+  async login(user: { name: string }) {
+    const payload = { username: user.name };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }
