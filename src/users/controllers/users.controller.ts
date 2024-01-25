@@ -24,6 +24,11 @@ export class UsersController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'User List' })
+  @ApiResponse({
+    status: 200,
+    description: 'Create a user list',
+  })
   getUsers(): Promise<any> {
     return this.usersService.getUsers();
   }
