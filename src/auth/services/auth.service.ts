@@ -9,11 +9,25 @@ export class AuthService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
+  /**
+   *
+   * @param email string
+   * @returns Promise<User>
+   */
   async findUser(email: string): Promise<User> {
     return this.userModel.findOne({ email });
   }
 
-  async validateUser(email: string, password: string): Promise<any> {
+  /**
+   *
+   * @param email string
+   * @param password string
+   * @returns Promise<{ name: string } | null>
+   */
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<{ name: string } | null> {
     const user = await this.findUser(email);
 
     if (user && user.email === email && user.password === password) {
