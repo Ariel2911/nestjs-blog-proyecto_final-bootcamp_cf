@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -31,5 +31,10 @@ export class UsersController {
   })
   getUsers(): Promise<any> {
     return this.usersService.getUsers();
+  }
+
+  @Get(':id')
+  getUser(@Param('id') id: string): Promise<any> {
+    return this.usersService.getUser(id);
   }
 }
