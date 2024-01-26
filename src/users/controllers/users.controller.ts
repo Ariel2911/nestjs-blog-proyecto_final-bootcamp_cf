@@ -45,6 +45,16 @@ export class UsersController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update user' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'returns information corresponding to the result of the update',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Error found in the received data',
+  })
   updateUser(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
