@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { User } from 'src/users/schemas/usersSchema';
+import { LoggedUser } from 'src/interfaces/loggedUser';
 
 @Injectable()
 export class AuthService {
@@ -24,16 +25,16 @@ export class AuthService {
    *
    * @param email string
    * @param password string
-   * @returns Promise<{ name: string } | null>
+   * @returns Promise<LoggedUser | null>
    */
   async validateUser(
     email: string,
     password: string,
-  ): Promise<{ name: string } | null> {
+  ): Promise<LoggedUser | null> {
     const user = await this.findUser(email);
 
     if (user && user.email === email && user.password === password) {
-      return { name: user.name };
+      return { name: user.name, isAdmin: user.isAdmin };
     }
     return null;
   }
@@ -45,8 +46,8 @@ export class AuthService {
         access_token: string;
       }
    */
-  async login(user: { name: string }) {
-    const payload = { name: user.name };
+  async login(user: LoggedUser) {
+    const payload = { ...user };
 
     return {
       access_token: this.jwtService.sign(payload),
