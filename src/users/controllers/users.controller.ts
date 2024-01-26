@@ -33,6 +33,12 @@ export class UsersController {
     return this.usersService.getUsers();
   }
 
+  @Get()
+  @ApiOperation({ summary: 'User' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the user corresponding to the received id',
+  })
   @Get(':id')
   getUser(@Param('id') id: string): Promise<any> {
     return this.usersService.getUser(id);
