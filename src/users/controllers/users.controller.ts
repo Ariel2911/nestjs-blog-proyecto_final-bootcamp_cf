@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -41,5 +42,13 @@ export class UsersController {
   })
   getUser(@Param('id') id: string): Promise<any> {
     return this.usersService.getUser(id);
+  }
+
+  @Put(':id')
+  updateUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<any> {
+    return this.usersService.updateUser(id, updateUserDto);
   }
 }
