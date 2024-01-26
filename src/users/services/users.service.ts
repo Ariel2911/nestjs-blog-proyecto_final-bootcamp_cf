@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/usersSchema';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,6 @@ export class UsersService {
    * @param createUserDto
    * @returns Promise<User>
    */
-
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
       const createdUser = await this.userModel.create(createUserDto);
@@ -74,6 +74,26 @@ export class UsersService {
       };
 
       return findUser;
+    } catch (error) {
+      console.log(error);
+
+      throw new InternalServerErrorException('unknown error');
+    }
+  }
+
+  /**
+   *
+   * @param id string
+   * @param updateUserDto UpdateUserDto
+   * @returns Promise<any>
+   */
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<any> {
+    try {
+      const UpdatedUser = this.userModel
+        .updateOne({ _id: id }, updateUserDto)
+        .lean();
+
+      return UpdatedUser;
     } catch (error) {
       console.log(error);
 
