@@ -58,4 +58,26 @@ export class UsersService {
       throw new InternalServerErrorException('unknown error');
     }
   }
+
+  /**
+   *
+   * @param id string
+   * @returns Promise<any>
+   */
+  async getUser(id: string): Promise<any> {
+    try {
+      const user = await this.userModel.findOne({ _id: id }).lean();
+
+      const findUser = {
+        _id: user._id,
+        name: user.name,
+      };
+
+      return findUser;
+    } catch (error) {
+      console.log(error);
+
+      throw new InternalServerErrorException('unknown error');
+    }
+  }
 }
