@@ -1,8 +1,20 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Admin } from 'src/auth/decorators/isAdmin.decorator';
+import { OwnerAdministratorGuard } from 'src/auth/guards/ownerAdministrator.guard';
+import { Owner } from 'src/auth/decorators/isOwner.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -44,6 +56,9 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
 
+  @Admin(true)
+  @Owner(true)
+  @UseGuards(JwtAuthGuard, OwnerAdministratorGuard)
   @Put(':id')
   @ApiOperation({ summary: 'Update user' })
   @ApiResponse({
