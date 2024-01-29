@@ -15,9 +15,9 @@ export class AuthService {
   /**
    *
    * @param email string
-   * @returns Promise<User>
+   * @returns Promise<any>
    */
-  async findUser(email: string): Promise<User> {
+  async findUser(email: string): Promise<any> {
     return this.userModel.findOne({ email });
   }
 
@@ -34,7 +34,7 @@ export class AuthService {
     const user = await this.findUser(email);
 
     if (user && user.email === email && user.password === password) {
-      return { name: user.name, isAdmin: user.isAdmin };
+      return { _id: user._id, name: user.name, isAdmin: user.isAdmin };
     }
     return null;
   }
