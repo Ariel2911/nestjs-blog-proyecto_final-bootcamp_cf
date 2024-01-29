@@ -89,12 +89,18 @@ export class UsersService {
    */
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<any> {
     try {
-      const UpdatedUser = this.userModel
+      const UpdatedUser = await this.userModel
         .updateOne({ _id: id }, updateUserDto)
         .lean();
 
       return UpdatedUser;
     } catch (error) {
+      if (error.code === 11000) {
+        throw new BadRequestException(
+          `The ${Object.keys(error.keyPattern)} already exist`,
+        );
+      }
+
       console.log(error);
 
       throw new InternalServerErrorException('unknown error');
