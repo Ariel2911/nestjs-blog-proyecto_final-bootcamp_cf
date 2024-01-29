@@ -4,7 +4,7 @@ import { AdminKey } from '../decorators/isAdmin.decorator';
 import { OwnerKey } from '../decorators/isOwner.decorator';
 
 @Injectable()
-export class OwnerOrAdministratorOnlyGuard implements CanActivate {
+export class OwnerAdministratorGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
