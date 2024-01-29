@@ -26,7 +26,7 @@ export class User {
   email: string;
 
   @Prop({
-    type: String,
+    type: Boolean,
     default: false,
   })
   isAdmin: boolean;
