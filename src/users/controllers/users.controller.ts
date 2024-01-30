@@ -8,7 +8,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -61,14 +66,23 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, OwnerAdministratorGuard)
   @Put(':id')
   @ApiOperation({ summary: 'Update user' })
+  @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 200,
     description:
-      'returns information corresponding to the result of the update',
+      'Returns information corresponding to the result of the update',
   })
   @ApiResponse({
     status: 400,
     description: 'Error found in the received data',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Only authorized admin and owner',
+  })
+  @ApiResponse({
+    status: 403,
+    description: "You don't have access",
   })
   updateUser(
     @Param('id') id: string,
