@@ -1,13 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/usersSchema';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
 export class UsersService {
@@ -30,9 +27,7 @@ export class UsersService {
         );
       }
 
-      console.log(error);
-
-      throw new InternalServerErrorException("Can't create user");
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -53,9 +48,7 @@ export class UsersService {
 
       return listUsers;
     } catch (error) {
-      console.log(error);
-
-      throw new InternalServerErrorException('unknown error');
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -75,9 +68,7 @@ export class UsersService {
 
       return findUser;
     } catch (error) {
-      console.log(error);
-
-      throw new InternalServerErrorException('unknown error');
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -100,10 +91,7 @@ export class UsersService {
           `The ${Object.keys(error.keyPattern)} already exist`,
         );
       }
-
-      console.log(error);
-
-      throw new InternalServerErrorException('unknown error');
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -118,9 +106,7 @@ export class UsersService {
 
       return deletedUser;
     } catch (error) {
-      console.log(error);
-
-      throw new InternalServerErrorException('unknown error');
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 }
