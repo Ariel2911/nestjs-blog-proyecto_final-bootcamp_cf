@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -89,5 +90,12 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<any> {
     return this.usersService.updateUser(id, updateUserDto);
+  }
+
+  @Admin(true)
+  @UseGuards(JwtAuthGuard, OwnerAdministratorGuard)
+  @Delete(':id')
+  deleteUser(@Param('id') id: string): Promise<any> {
+    return this.usersService.deleteUser(id);
   }
 }
