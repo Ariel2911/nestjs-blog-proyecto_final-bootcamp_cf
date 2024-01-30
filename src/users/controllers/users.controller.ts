@@ -95,6 +95,24 @@ export class UsersController {
   @Admin(true)
   @UseGuards(JwtAuthGuard, OwnerAdministratorGuard)
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete user' })
+  @ApiBearerAuth('JWT-auth')
+  @ApiResponse({
+    status: 200,
+    description: 'Returns information corresponding to the deletion result',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Error found in the received data',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Only authorized admin',
+  })
+  @ApiResponse({
+    status: 403,
+    description: "You don't have access",
+  })
   deleteUser(@Param('id') id: string): Promise<any> {
     return this.usersService.deleteUser(id);
   }
