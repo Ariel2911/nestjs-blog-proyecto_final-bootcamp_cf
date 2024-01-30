@@ -11,7 +11,6 @@ export class ErrorManager extends Error {
     if (name) {
       throw new HttpException(message, HttpStatus[name]);
     } else {
-      console.log('first');
       throw new HttpException(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
