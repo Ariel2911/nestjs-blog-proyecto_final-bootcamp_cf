@@ -17,9 +17,9 @@ export class UsersService {
    */
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const createdUser = await this.userModel.create(createUserDto);
+      const createUser = new this.userModel(createUserDto);
 
-      return createdUser;
+      return await createUser.save();
     } catch (error) {
       if (error.code === 11000) {
         throw new BadRequestException(
