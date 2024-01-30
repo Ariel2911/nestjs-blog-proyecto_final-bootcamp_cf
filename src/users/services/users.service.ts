@@ -106,4 +106,21 @@ export class UsersService {
       throw new InternalServerErrorException('unknown error');
     }
   }
+
+  /**
+   *
+   * @param id string
+   * @returns Promise<any>
+   */
+  async deleteUser(id: string): Promise<any> {
+    try {
+      const deletedUser = await this.userModel.deleteOne({ _id: id }).lean();
+
+      return deletedUser;
+    } catch (error) {
+      console.log(error);
+
+      throw new InternalServerErrorException('unknown error');
+    }
+  }
 }
