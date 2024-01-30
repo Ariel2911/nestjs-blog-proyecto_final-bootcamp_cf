@@ -104,7 +104,9 @@ export class UsersService {
     try {
       const deletedUser = await this.userModel.deleteOne({ _id: id }).lean();
 
-      return deletedUser;
+      if (deletedUser.deletedCount === 0) return 'Could not delete user';
+
+      return 'User deleted';
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
