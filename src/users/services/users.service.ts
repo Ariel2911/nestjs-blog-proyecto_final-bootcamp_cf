@@ -84,13 +84,16 @@ export class UsersService {
         .updateOne({ _id: id }, updateUserDto)
         .lean();
 
-      return UpdatedUser;
+      if (!UpdatedUser.acknowledged) return 'Could not update user';
+
+      return 'Updated user';
     } catch (error) {
       if (error.code === 11000) {
         throw new BadRequestException(
           `The ${Object.keys(error.keyPattern)} already exist`,
         );
       }
+
       throw ErrorManager.createSignatureError(error.message);
     }
   }
