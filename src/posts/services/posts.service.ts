@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from '../schemas/postsSchema';
 import { Model } from 'mongoose';
 import { CreatePostDto } from '../dto/create-post.dto';
-import { ErrorManager } from 'src/utils/error.manager';
 import { UpdatePostDto } from '../dto/update-post.dto';
 
 @Injectable()
@@ -28,7 +27,7 @@ export class PostsService {
 
       return createdPost;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -42,7 +41,7 @@ export class PostsService {
 
       return posts;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -52,7 +51,7 @@ export class PostsService {
 
       return post;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -66,7 +65,7 @@ export class PostsService {
 
       return 'Updated post';
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -78,7 +77,7 @@ export class PostsService {
 
       return 'Post deleted';
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -88,7 +87,7 @@ export class PostsService {
 
       return posts;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
