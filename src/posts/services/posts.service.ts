@@ -14,9 +14,15 @@ export class PostsService {
    * @param createPostDto
    * @returns Promise<Post>
    */
-  async createPost(createPostDto: CreatePostDto): Promise<Post> {
+  async createPost(
+    createPostDto: CreatePostDto,
+    req: Request & { user: { name: string } },
+  ): Promise<Post> {
     try {
-      const createdPost = this.postModel.create(createPostDto);
+      const createdPost = this.postModel.create({
+        ...createPostDto,
+        author: req.user.name,
+      });
 
       return createdPost;
     } catch (error) {
