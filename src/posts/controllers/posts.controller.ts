@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { PostsService } from '../services/posts.service';
 import { CreatePostDto } from '../dto/create_post.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -13,5 +13,10 @@ export class PostsController {
     @Req() req: Request & { user: { name: string } },
   ): Promise<any> {
     return this.postsService.createPost(createPostDto, req);
+  }
+
+  @Get()
+  getPosts(): Promise<any> {
+    return this.postsService.getPosts();
   }
 }
