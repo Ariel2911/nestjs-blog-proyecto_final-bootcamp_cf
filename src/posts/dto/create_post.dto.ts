@@ -15,6 +15,6 @@ export class CreatePostDto {
   readonly content: string;
 
   @IsNotEmpty()
-  @IsArray({ each: true })
+  @IsArray()
   readonly categories: string[];
 }
