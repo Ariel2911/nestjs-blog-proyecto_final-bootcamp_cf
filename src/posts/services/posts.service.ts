@@ -4,6 +4,7 @@ import { Post } from '../schemas/postsSchema';
 import { Model } from 'mongoose';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { ErrorManager } from 'src/utils/error.manager';
+import { UpdatePostDto } from '../dto/update-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -49,6 +50,20 @@ export class PostsService {
       const post = this.postModel.findById(id).lean();
 
       return post;
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
+
+  async updatePost(id: string, updatePostDto: UpdatePostDto): Promise<any> {
+    try {
+      const updatedPost = await this.postModel
+        .updateOne({ _id: id }, updatePostDto)
+        .lean();
+
+      if (!updatedPost.acknowledged) return 'Could not update post';
+
+      return 'Updated post';
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
