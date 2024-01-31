@@ -81,4 +81,14 @@ export class PostsService {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
+
+  async searchPostsById(id: string): Promise<any> {
+    try {
+      const posts = this.postModel.find({ userId: id });
+
+      return posts;
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
 }
