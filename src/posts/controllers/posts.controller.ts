@@ -21,7 +21,7 @@ export class PostsController {
   @Post()
   createPost(
     @Body() createPostDto: CreatePostDto,
-    @Req() req: Request & { user: { name: string } },
+    @Req() req: Request & { user: { _id: string; name: string } },
   ): Promise<any> {
     return this.postsService.createPost(createPostDto, req);
   }
