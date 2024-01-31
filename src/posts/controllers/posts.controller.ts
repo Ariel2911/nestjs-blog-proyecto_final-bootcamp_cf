@@ -48,4 +48,9 @@ export class PostsController {
   deletePost(@Param('id') id: string): Promise<any> {
     return this.postsService.deletePost(id);
   }
+
+  @Get('user/:userId')
+  getPostsForId(@Param('userId') userId: string): Promise<any> {
+    return this.postsService.searchPostsById(userId);
+  }
 }
