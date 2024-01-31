@@ -43,4 +43,14 @@ export class PostsService {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
+
+  async getPost(id: string): Promise<any> {
+    try {
+      const post = this.postModel.findById(id).lean();
+
+      return post;
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
 }
