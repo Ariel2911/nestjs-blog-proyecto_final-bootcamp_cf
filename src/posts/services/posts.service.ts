@@ -68,4 +68,16 @@ export class PostsService {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
+
+  async deletePost(id: string): Promise<any> {
+    try {
+      const deletedPost = await this.postModel.deleteOne({ _id: id }).lean();
+
+      if (deletedPost.deletedCount === 0) return 'Could not delete post';
+
+      return 'Post deleted';
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
 }
