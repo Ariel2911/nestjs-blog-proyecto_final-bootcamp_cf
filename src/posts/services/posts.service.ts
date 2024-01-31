@@ -29,4 +29,18 @@ export class PostsService {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
+
+  /**
+   *
+   * @returns Promise<any>
+   */
+  async getPosts(): Promise<any> {
+    try {
+      const posts = this.postModel.find().lean();
+
+      return posts;
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
 }
