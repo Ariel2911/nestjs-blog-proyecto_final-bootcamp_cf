@@ -23,6 +23,12 @@ export class Post {
     type: String,
     required: true,
   })
+  userId: string;
+
+  @Prop({
+    type: String,
+    required: true,
+  })
   content: string;
 
   @Prop({
