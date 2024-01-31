@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from '../schemas/postsSchema';
 import { Model } from 'mongoose';
-import { CreatePostDto } from '../dto/create_post.dto';
+import { CreatePostDto } from '../dto/create-post.dto';
 import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
