@@ -17,12 +17,13 @@ export class PostsService {
    */
   async createPost(
     createPostDto: CreatePostDto,
-    req: Request & { user: { name: string } },
+    req: Request & { user: { _id: string; name: string } },
   ): Promise<Post> {
     try {
-      const createdPost = this.postModel.create({
+      const createdPost = await this.postModel.create({
         ...createPostDto,
         author: req.user.name,
+        userId: req.user._id,
       });
 
       return createdPost;
