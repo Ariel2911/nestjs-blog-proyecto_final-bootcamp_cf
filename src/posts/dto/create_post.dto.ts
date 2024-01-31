@@ -8,10 +8,6 @@ export class CreatePostDto {
 
   @IsNotEmpty()
   @IsString()
-  readonly author: string;
-
-  @IsNotEmpty()
-  @IsString()
   readonly content: string;
 
   @IsNotEmpty()
