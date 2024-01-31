@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -41,5 +42,10 @@ export class PostsController {
     @Body() updatePostDto: UpdatePostDto,
   ): Promise<any> {
     return this.postsService.updatePost(id, updatePostDto);
+  }
+
+  @Delete(':id')
+  deletePost(@Param('id') id: string): Promise<any> {
+    return this.postsService.deletePost(id);
   }
 }
