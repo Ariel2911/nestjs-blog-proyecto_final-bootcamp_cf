@@ -1,10 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../schemas/usersSchema';
 import { Model } from 'mongoose';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
 export class UsersService {
@@ -27,7 +30,7 @@ export class UsersService {
         );
       }
 
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -48,7 +51,7 @@ export class UsersService {
 
       return listUsers;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -68,7 +71,7 @@ export class UsersService {
 
       return findUser;
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -94,7 +97,7 @@ export class UsersService {
         );
       }
 
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -111,7 +114,7 @@ export class UsersService {
 
       return 'User deleted';
     } catch (error) {
-      throw ErrorManager.createSignatureError(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
